@@ -1,8 +1,10 @@
+"""
+Simple scaper for retrieving all player stats from mlssoccer.com.
+"""
+
 from bs4 import BeautifulSoup
 import requests
 from collections import OrderedDict
-
-DEBUG = True
 
 class MlsStatsScraper(object):
     """
@@ -20,8 +22,10 @@ class MlsStatsScraper(object):
     def scrape(self):
         """
         Scrape url using requests and BeautifulSoup to get raw data.
-        Input: self
-        Output: None
+        Input: 
+         - self
+        Output:
+         - None
         """
 
         # scrape the initial page first
@@ -39,10 +43,12 @@ class MlsStatsScraper(object):
     def scrapePage(self,url):
         """
         Scrape page for the provided url
-        Input: self, string - url to scrape
-        Output: None
+        Input: 
+         - self
+         - string: url to scrape
+        Output:
+         - None
         """
-
         # scrape page for raw data
         r  = requests.get(url)
         self.raw = BeautifulSoup(r.text)
@@ -53,8 +59,10 @@ class MlsStatsScraper(object):
     def getStatType(self):
         """
         Ask user to choose which stat type they want to scrape: (1) season, (2) alltime, (3)team.
-        Input: self
-        Output: string (season, alltime, team)
+        Input:
+         - self
+        Output:
+         - string: season, alltime, team
         """
         # get input from user, if invalid print message and ask again
         choice = raw_input("Choose the stat type you want: season(s)/alltime(a)/team(t) stats?  ")
@@ -75,8 +83,10 @@ class MlsStatsScraper(object):
     def getHeaders(self):
         """
         Get headers for the data we are about to scrape.
-        Input: None
-        Output: OrderedDict() with the column headers defined and all values = None
+        Input:
+         - None
+        Output:
+         - OrderedDict(): with the column headers defined and all values == None
         """
         # set column headers as dict keys using ordered dict to simply data entry later
         headers = OrderedDict()
@@ -93,10 +103,11 @@ class MlsStatsScraper(object):
         """
         Populate a dictionary from the raw scraped data with each column header
         as a key and all data from that column as values.
-        Input: self
-        Output: dict containing the structured data
+        Input:
+         - self
+        Output:
+         - dict: contains the structured data
         """
-
         if self.next_page == '':
             # First, we want to get the headers
             hdr_dict = self.getHeaders()
@@ -118,8 +129,10 @@ class MlsStatsScraper(object):
         """
         Get all data from each column in the table and set it as values in the
         appropriate key created using the headers in getHeaders().
-        Input: dict containing all headers as keys
-        Output: dict with headers mapped to column data as values
+        Input:
+         - dict: contains all headers as keys
+        Output:
+         - dict: with headers mapped to column data as values
         """
         # loop through each data column and populate values
         for idx in range(0,len(self.raw.find_all('td'))):
