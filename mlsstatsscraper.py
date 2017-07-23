@@ -108,7 +108,7 @@ class MlsStatsScraper(object):
 
                         # Last page is shared across all statistics tables, so
                         # we don't always need to loop through all pages.
-                        if column.contents[0] == 'Stats Unavailable':
+                        if len(column.contents) == 0 or column.contents[0] == 'Stats Unavailable':
                             break
 
                         # Set key to column title

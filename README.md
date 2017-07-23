@@ -13,6 +13,7 @@ To run: ```python mlsstatsscraper.py```
 #### Dependencies
 - ```requests```
 - ```BeautifulSoup```
+- ```pandas```
 
 Future Plans
 --------
